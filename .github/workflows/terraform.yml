@@ -19,9 +19,9 @@ jobs:
       cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
 
   Deploy:
+    needs: Apply
     name: Deploy Website to S3
-    runs-on: ubuntu-latest
-    needs: Apply 
+    runs-on: ubuntu-latest 
 
     steps:
       - name: Checkout repository
