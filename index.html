@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Resume</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            line-height: 1.6;
+            background-color: #218475;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: rgb(184, 184, 184);
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1, h2, h3 {
+            color: #ec0000a3;
+        }
+        h1 {
+            border-bottom: 2px solid #333;
+            padding-bottom: 10px;
+        }
+        ul {
+            padding-left: 20px;
+        }
+        .section {
+            margin-bottom: 20px;
+        }
+        .section {
+            display: none;
+        }
+        .section.active {
+            display: block;
+        }
+        nav a {
+            margin-right: 15px;
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+
+        <nav>
+            <a href="#" onclick="showSection('resume')">Resume</a>
+            <a href="#" onclick="showSection('bio')">Bio</a>
+        </nav>
+
+        <div id="resume" class="section">
+          <div class="section-active">
+            <h1>Roman Strypa</h1>
+            <ul style="list-style-type: none; padding: 0; margin-top: 10px;">
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="https://www.linkedin.com/in/roman-strypa/" target="_blank" style="text-decoration: none; color: #007BFF; font-weight: bold;">LinkedIn</a>
+                </li>
+                <li style="display: inline;">
+                    <a href="https://github.com/roman-98" target="_blank" style="text-decoration: none; color: #007BFF; font-weight: bold;">GitHub</a>
+                </li>
+            </ul>
+        </div>
+  
+          <div class="section-active">
+              <h2>Personal Statement</h2>
+              <p>
+                  As a system administrator with over four years of experience in technical support and system administration, I specialise in setting up, maintaining, and optimising networks and operating systems. I am now transitioning into a cloud-focused role as a DevOps Engineer. My journey in IT began at Bader Ukraine, where I developed a passion for technology and problem-solving through hands-on work and self-directed learning. Later, I worked as a monitoring and network engineer at an ISP, where I enhanced my understanding of infrastructure and networks, while also improving my communication skills with clients. Recently, I completed the AWS re/Start bootcamp by Generation Ireland, gaining practical experience with AWS services. I am eager to apply my skills and continue growing in a dynamic DevOps environment.
+              </p>
+          </div>
+  
+          <div class="section-active">
+              <h2>Key Skills</h2>
+              <ul>
+                  <li>Automation and Infrastructure as Code - Skilled in automating infrastructure with Terraform and Ansible for consistent deployments</li>
+                  <li>Containerization and Orchestration - Expertise in Docker for containerizing applications and Kubernetes (EKS) for managing scalable and highly available clusters</li>
+                  <li>CI/CD - Experience with Jenkins, GitHub Actions, and ArgoCD for streamlined deployment pipelines</li>
+                  <li>AWS Cloud Services - leveraging cloud infrastructure for scalable, secure, and cost-effective solutions</li>
+                  <li>Problem solving - Strong troubleshooting and analytical skills for resolving complex infrastructure issues</li>
+                  <li>Collaboration and Communication - Effective cross-team collaboration and knowledge sharing</li>
+                  <li>Teamwork - Proven ability to work well in diverse teams and foster positive dynamics</li>
+              </ul>
+          </div>
+  
+          <div class="section-active">
+              <h2>Experience</h2>
+              <h3>Cloud Support Engineer training programme, Generation UK & Ireland (August 2024 - October 2024, Ireland)</h3>
+              <ul>
+                  <li>Successfully completed the AWS re/Start Bootcamp, a 12-week intensive training program designed to equip participants with foundational cloud computing skills.</li>
+                  <li>Gained hands-on experience with core AWS services, including EC2, S3, RDS, and IAM.</li>
+                  <li>Automated resource management using AWS Lambda and serverless architecture principles.</li>
+                  <li>Enhanced employability with sessions focused on growth mindset, adaptability, and professional development.</li>
+              </ul>
+  
+              <h3>DevOps Project-Based Learning, SoftServe IT Academy (August 2024 - October 2024, Ukraine)</h3>
+              <ul>
+                  <li>Worked on the GreenCity project using the Agile methodology, implementing CI/CD pipeline using GitHub Actions and Kubernetes.</li>
+                  <li>Deployed IaC using Terraform on AWS infrastructure.</li>
+              </ul>
+  
+              <h3>DevOps and Kubernetes. Practical intensive+, Prometheus Learning Platform (July 2024 - September 2024, Ukraine)</h3>
+              <ul>
+                  <li>Developed a simple echo bot in Golang, containerising the application, and setting up a CI/CD pipeline using GitHub Actions.</li>
+                  <li>Used ArgoCD to deliver containerised images to a Kubernetes cluster, implementing DevSecOps and monitoring Kubernetes.</li>
+              </ul>
+          </div>
+  
+          <div class="section-active">
+              <h2>Work Experience</h2>
+              <h3>Monitoring/NOC Engineer, ISP Radionetwork (January 2023 - May 2024, Lviv)</h3>
+              <h3>Servicing several networks in the western region of Ukraine</h3>
+              <ul>
+                  <li>Developed problem-solving skills by monitoring network nodes and ensuring reliable network operations.</li>
+                  <li>Administering servers, OLT, routers, and switches using Zabbix, Mikrotik, HPE, Proxmox, and CCTV.</li>
+                  <li>Improved communication skills by providing technical support to legal subscribers.</li>
+              </ul>
+  
+              <h3>System Administrator, Bader Ukraine LLC (March - October 2021, Horodok)</h3>
+              <h3>Maintenance and modernisation of the plant's computer network</h3>
+              <ul>
+                  <li>Solved problems and ensured reliability by diagnosing and repairing Windows computers, minimising downtime.</li>
+                  <li>Managed security independently, safeguarding server and network infrastructure with Axis.</li>
+                  <li>Improved efficiency by maintaining and modernising the plant's network using PRTG, HP Aruba, and HPE.</li>
+              </ul>
+  
+              <h3>System Administrator, Ivan Franko National University of Lviv (September 2019 - November 2020, Lviv)</h3>
+              <h3>Support and maintenance of the scientific library computer network</h3>
+              <ul>
+                  <li>Ensured smooth operations of the library network by organising and managing systems on Windows.</li>
+                  <li>Solved problems and collaborated in a team to diagnose and maintain computers, ensuring network stability.</li>
+                  <li>Took initiative to develop a Telegram bot for book search, automating processes using JS, Node.js, and
+                  Postgres.</li>
+              </ul>
+          </div>
+  
+          <div class="section-active">
+              <h2>Education and Certifications</h2>
+              <ul>
+                  <li>AWS Certified Cloud Practitioner - Generation UK & Ireland (August 2024-October 2024)</li>
+                  <li>DevOps Project-Based Learning - SoftServe (August 2024-October 2024)</li>
+                  <li><a href="https://certs.prometheus.org.ua/cert/88376b14bfc9465db999cffcf595ff73">DevOps and Kubernetes. Practical intensive+ - Prometheus (July 2024-September 2024)</a></li>
+                  <li><a href="https://www.cloudskillsboost.google/public_profiles/fe76d3fe-aa0d-4056-a456-0a6082617d2f">Google Cloud Skills Boost Profile - Google Cloud (April 2023-May 2024)</a></li>
+                  <li>Master’s Degree, Information, Librarian and Archive Business - Ivan Franko National University of Lviv (September 2022-December 2023)</li>
+                  <li>Master’s Degree, Secondary Education (History) - Ivan Franko National University of Lviv (October 2019-December 2020)</li>
+                  <li>Bachelor's Degree, Bibliology, Librarianship, and Bibliography - Ivan Franko National University of Lviv (September 2015-June 2019)</li>
+              </ul>
+          </div>
+  
+          <div class="section-active">
+              <h2>Interests</h2>
+              <p>
+                I am passionate about programming, particularly in Node.js, Python, and Go, reflecting my commitment to continuous
+                learning and problem-solving. Reading books enhances my critical thinking, helping me approach challenges with a
+                broader perspective. I also enjoy cycling, which supports a healthy work-life balance and builds resilience. Playing tennis
+                has improved my teamwork, strategic thinking, and adaptability. These interests contribute to my personal growth and
+                complement my professional skills, making me a well-rounded candidate for any team.
+              </p>
+          </div>
+        </div>
+
+        <div id="bio" class="section">
+          <div class="section-active">
+            <h1>Roman Strypa</h1>
+            <ul style="list-style-type: none; padding: 0; margin-top: 10px;">
+                <li style="display: inline; margin-right: 15px;">
+                    <a href="https://www.linkedin.com/in/roman-strypa/" target="_blank" style="text-decoration: none; color: #007BFF; font-weight: bold;">LinkedIn</a>
+                </li>
+                <li style="display: inline;">
+                    <a href="https://github.com/roman-98" target="_blank" style="text-decoration: none; color: #007BFF; font-weight: bold;">GitHub</a>
+                </li>
+            </ul>
+        </div>
+            <h2>Bio</h2>
+            <p>
+              First of all, I have always been interested in cloud technologies and development in general, and I have enjoyed solving various technical problems, related to network configuration, software installation and operating system upgrades, since I started working as a system administrator. I started to take an active interest in IT technologies when I got my first job as a system administrator. I searched for information wherever possible, but at that time, YouTube was the most effective for me, where I found and saved videos on technical topics, read articles on technical topics, such as how to install specific software on a computer, how to create bootable USB sticks, articles on computer networks, articles on Linux and worked a lot with the hardware and software of computers. I became interested in programming and development tools, first tried to write in Python, used pycharm, also got acquainted with postgres, created the first tables, later came up with the idea to create a telegram bot that performed the function of searching for books in the library. Later, I discovered docker and understood what containerisation was. That's how I discovered DevOps and realised that I was ready to work and develop in this field.
+            </p>
+            <p>
+              While working as a system administrator at Bader Ukraine, my desire to develop in the IT industry, and especially in cloud technologies, has become even stronger. There, I worked a lot with infrastructure and networks, performed Help Desk tasks and communicated with people a lot, which made my job even more interesting and I realized that the production depends on my IT team, so I tried to do my best. It was there that I got acquainted with Go and later became interested in web development. Working as a monitoring engineer and later as a network engineer at an ISP, I delved even deeper into networks and infrastructure, studied protocols, IP addressing and routing, I was most interested in infrastructure, also did tasks related to CCTV and maintained intercoms in a residential complex, in particular, helped build a computer network in one of these residential complexes. As a support engineer, I had to communicate a lot with legal clients, which gave me a lot of experience in solving problems in infrastructure and networks. There I worked with the Zabbix monitoring system. That's how I became interested in cloud technologies, and later decided to apply for the AWS re/start programme from Generation, where, in addition to learning AWS services, I developed behavioural and communication skills.
+            </p>
+            <p>
+              As a DevOps Engineer, I would like to develop my communication skills and develop my programming. Although I have worked a lot as a system administrator, this will not prevent me from diving into software development, especially since it is a great motivation for me. With the development of my career, I paid special attention to Linux, also containerisation and orchestration, Docker and Kubernetes. Developing skills in working with CI/CD pipelines, including Jenkins, GitHub Actions and ArgoCD. An integral part of my technical skills is working with infrastructure as code, namely Terraform. I am looking to find a team where I can demonstrate my knowledge and skills and start a professional career in software development. Besides coming to work to do my job, I want to learn as much as I can to become an experienced DevOps Engineer.
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function showSection(sectionId) {
+            document.querySelectorAll('.section').forEach(function(section) {
+                section.classList.remove('active');
+            });
+            document.getElementById(sectionId).classList.add('active');
+        }
+    </script>
+
+</body>
+</html>
