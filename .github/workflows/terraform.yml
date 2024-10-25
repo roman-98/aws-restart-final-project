@@ -9,16 +9,12 @@ on:
 jobs:
   Plan:
     uses: roman-98/aws-restart-final-project/.github/workflows/aws_tf_plan.yml@main
-    with:
-      gh_environment: Terraform
     secrets:
       cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
 
   Apply:
     needs: Plan
     uses: roman-98/aws-restart-final-project/.github/workflows/aws_tf_apply.yml@main
-    with:
-      gh_environment: Terraform
     secrets:
       cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
 

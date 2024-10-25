@@ -21,7 +21,6 @@ on:
 jobs:
   build-plan:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.gh_environment }}
     defaults:
       run:
         shell: bash    
@@ -37,15 +36,15 @@ jobs:
 
       - name: Terraform Init
         id: init
-        run: cd terraform/ && terraform init
+        run: terraform init
       
       - name: Terraform Validate
         id: validate
-        run: cd terraform/ && terraform validate
+        run: terraform validate
 
       - name: Terraform Plan
         id: plan
-        run: cd terraform/ && terraform plan
+        run: terraform plan
         continue-on-error: true
 
       - name: Terraform Plan Status
