@@ -1,7 +1,3 @@
-provider "aws" {
-  region = "eu-west-1"  
-}
-
 resource "aws_s3_bucket" "website_bucket" {
   bucket = "romanstripa.ie.guiub8398682jhf0s"
 }
@@ -14,13 +10,6 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
   }
 
   depends_on = [aws_s3_bucket.website_bucket]
-}
-
-resource "aws_s3_bucket_acl" "example" {
-  bucket = aws_s3_bucket.website_bucket.id
-  acl    = "public-read"
-
-  depends_on = [aws_s3_bucket_website_configuration.website_config]
 }
 
 resource "aws_s3_bucket_policy" "website_policy" {
@@ -38,7 +27,7 @@ resource "aws_s3_bucket_policy" "website_policy" {
     ]
   })
 
-  depends_on = [aws_s3_bucket_acl.example]
+  depends_on = [aws_s3_bucket_website_configuration.website_config]
 }
 
 output "website_url" {
