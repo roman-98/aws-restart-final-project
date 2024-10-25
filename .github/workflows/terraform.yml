@@ -36,6 +36,6 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 sync . s3://romanstripa.ie.guiub8398682jhf0s --exclude ".git/*" --acl public-read
+          aws s3 sync . s3://romanstripa.ie.guiub8398682jhf0s --exclude ".git/*"
 
   
