@@ -45,7 +45,7 @@ jobs:
 
       - name: Empty S3 Bucket
         run: |
-          aws s3 rm s3://romanstripa.ie.guiub8398682jhf0s --recursive
+          aws s3 rm s3://romanstripa.ie.guiub8398682jhf0s --recursive --profile admin-profile
 
       - name: Terraform Destroy
         run: terraform destroy -auto-approve
