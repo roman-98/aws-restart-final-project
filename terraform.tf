@@ -17,7 +17,7 @@ resource "aws_s3_bucket_website_configuration" "website_config" {
 }
 
 resource "aws_s3_bucket_acl" "example" {
-  bucket = aws_s3_bucket.example.id
+  bucket = aws_s3_bucket.website_bucket.id
   acl    = "public-read"
 
   depends_on = [aws_s3_bucket_website_configuration.website_config]
