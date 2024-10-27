@@ -1,4 +1,4 @@
-name: "GreenCity-Terraform"
+name: "AWS-reStart-Final-Project"
 
 on:
   push:
