@@ -24,7 +24,7 @@ jobs:
  
  #     - name: Empty S3 Bucket
  #       run: |
- #         aws s3 rm s3://romanstripa.ie. --recursive
+ #         aws s3 rm s3://romanstripa.ie --recursive
 
   Plan:
     #needs: Empty-bucket
@@ -56,6 +56,6 @@ jobs:
 
       - name: Sync files to S3
         run: |
-          aws s3 cp ./index.html s3://romanstripa.ie./
+          aws s3 cp ./index.html s3://romanstripa.ie/
 
   
