@@ -1,5 +1,5 @@
 resource "aws_s3_bucket" "website_bucket" {
-  bucket = "romanstripa.ie.guiub8398682jhf0s"
+  bucket = "romanstripa.ie."
 }
 
 resource "aws_s3_bucket_website_configuration" "website_config" {
