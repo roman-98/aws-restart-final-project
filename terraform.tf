@@ -33,7 +33,9 @@ resource "aws_s3_bucket_policy" "website_policy" {
         Principal = "*"
         Action    = [
           "s3:GetObject",
-          "s3:DeleteObject"
+          "s3:PutObject",
+          "s3:DeleteObject",
+          "s3:ListBucket"
         ]
         Resource  = "${aws_s3_bucket.website_bucket.arn}/*"
       }
