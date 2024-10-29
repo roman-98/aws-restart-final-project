@@ -112,12 +112,12 @@ resource "aws_iam_policy" "lambda_logging" {
 
 resource "aws_iam_role_policy_attachment" "lambda_sns_attach" {
   role       = aws_iam_role.lambda_role.name
-  policy_arn = aws_iam_policy.lambda_sns_policy.arn
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 resource "aws_iam_role_policy_attachment" "lambda_logs" {
   role       = aws_iam_role.lambda_role.name
-  policy_arn = aws_iam_policy.lambda_logging.arn
+  policy_arn = "arn:aws:iam::aws:policy/AdministratorAccess"
 }
 
 data "archive_file" "lambda_zip" {
