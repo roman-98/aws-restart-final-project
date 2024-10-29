@@ -223,5 +223,32 @@
         }
     </script>
 
+<form id="messageForm" style="text-align: center;">
+    <label for="message">Send me a message:</label>
+    <textarea id="message" name="message" required></textarea>
+    <button type="submit">Send</button>
+  </form>
+  
+  <script>
+    document.getElementById('messageForm').addEventListener('submit', async function(event) {
+      event.preventDefault();
+  
+      const message = document.getElementById('message').value;
+      const response = await fetch('YOUR_API_GATEWAY_INVOKE_URL', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ message: message })
+      });
+  
+      if (response.ok) {
+        alert('Message sent successfully!');
+      } else {
+        alert('Failed to send message.');
+      }
+    });
+  </script>  
+
 </body>
 </html>
