@@ -156,7 +156,7 @@ resource "aws_apigatewayv2_api" "api" {
   cors_configuration {
     allow_headers = ["*"]
     allow_methods = ["POST", "OPTIONS"]
-    allow_origins = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com"]
+    allow_origins = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com/send-message"]
     allow_credentials = true
     max_age = 300
   }

@@ -20,7 +20,7 @@ def lambda_handler(event, context):
             'statusCode': 200,
             'headers': {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com',
+                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com/send-message',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST'
             },
@@ -34,7 +34,7 @@ def lambda_handler(event, context):
             'statusCode': 500,
             'headers': {
                 'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com',
+                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com/send-message',
                 'Access-Control-Allow-Headers': 'Content-Type',
                 'Access-Control-Allow-Methods': 'OPTIONS,POST'
             },
