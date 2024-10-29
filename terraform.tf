@@ -123,7 +123,7 @@ resource "aws_iam_role_policy_attachment" "lambda_logs" {
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_dir  = "${path.module}/lambda"
-  output_path = "${path.module}/function.zip"
+  output_path = "${path.module}/lambdafunc.zip"
 }
 
 resource "aws_lambda_function" "send_message" {
@@ -135,7 +135,7 @@ resource "aws_lambda_function" "send_message" {
  
   environment {
     variables = {
-      SNS_TOPIC_ARN = aws_sns_topic.website_messages.arn
+      SNS_TOPIC_ARN = "arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic"
     }
   }
  
@@ -147,27 +147,27 @@ resource "aws_lambda_permission" "apigw" {
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.send_message.function_name
   principal     = "apigateway.amazonaws.com"
-  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+  source_arn    = "${aws_apigatewayv2_stage.default_stage.invoke_url}*"
 }
 
 resource "aws_apigatewayv2_api" "api" {
   name          = "WebsiteMessagesAPI"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_headers = ["*"]
-    allow_methods = ["POST", "OPTIONS"]
-    allow_origins = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com"]
+    allow_headers     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
+    allow_methods     = ["POST", "OPTIONS"]
+    allow_origins     = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com"]
     allow_credentials = true
-    max_age = 300
+    max_age           = 300
   }
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
-  api_id             = aws_apigatewayv2_api.api.id
-  integration_type   = "AWS_PROXY"
-  integration_uri    = aws_lambda_function.send_message.invoke_arn
-  integration_method = "POST"
-  payload_format_version = "2.0"
+  api_id                  = aws_apigatewayv2_api.api.id
+  integration_type        = "AWS_PROXY"
+  integration_uri         = aws_lambda_function.send_message.invoke_arn
+  integration_method      = "POST"
+  payload_format_version  = "2.0"
 }
 
 resource "aws_apigatewayv2_route" "post_route" {
