@@ -154,10 +154,11 @@ resource "aws_apigatewayv2_api" "api" {
   name          = "WebsiteMessagesAPI"
   protocol_type = "HTTP"
   cors_configuration {
-    allow_headers = ["content-type"]
-    allow_methods = ["POST"]
-    allow_origins = ["*"]
-    max_age      = 300
+    allow_headers = ["*"]
+    allow_methods = ["POST", "OPTIONS"]
+    allow_origins = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com"]
+    allow_credentials = true
+    max_age = 300
   }
 }
 
