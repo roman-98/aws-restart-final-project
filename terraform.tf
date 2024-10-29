@@ -103,7 +103,7 @@ resource "aws_lambda_function" "send_message" {
   role          = aws_iam_role.lambda_role.arn
   handler       = "lambda_function.lambda_handler"
   runtime       = "python3.8"
-  filename      = "sendEmailFunction.py" 
+  filename      = "sendEmailFunction.py.gz" 
 
   environment {
     variables = {
@@ -111,5 +111,5 @@ resource "aws_lambda_function" "send_message" {
     }
   }
 
-  source_code_hash = filebase64sha256("sendEmailFunction.py")
+  source_code_hash = filebase64sha256("sendEmailFunction.py.gz")
 }
