@@ -3,7 +3,7 @@ import boto3
 import os
 
 sns_client = boto3.client('sns')
-sns_topic_arn = os.environ['SNS_TOPIC_ARN']
+sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
 
 def lambda_handler(event, context):
     body = json.loads(event.get('body', '{}'))
