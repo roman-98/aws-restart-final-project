@@ -2,43 +2,27 @@ import json
 import boto3
 import os
 
+sns_client = boto3.client('sns')
+sns_topic_arn = os.environ.get('arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic')
+
 def lambda_handler(event, context):
     try:
-        sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
-        
-        body = json.loads(event['body'])
-        message = body.get('message', '')
-        
-        sns = boto3.client('sns')
-        
-        response = sns.publish(
+        body = json.loads(event.get('body', '{}'))
+        message = body.get("message", "No message provided")
+
+        sns_client.publish(
             TopicArn=sns_topic_arn,
-            Message=message
+            Message=message,
+            Subject="New message from website"
         )
-        
+
         return {
             'statusCode': 200,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST'
-            },
-            'body': json.dumps({
-                'message': 'Message sent successfully',
-                'messageId': response['MessageId']
-            })
+            'body': json.dumps('Message sent successfully!')
         }
     except Exception as e:
+        print(f"Error: {e}")
         return {
             'statusCode': 500,
-            'headers': {
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': 'http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com',
-                'Access-Control-Allow-Headers': 'Content-Type',
-                'Access-Control-Allow-Methods': 'OPTIONS,POST'
-            },
-            'body': json.dumps({
-                'error': str(e)
-            })
+            'body': json.dumps('Internal Server Error')
         }
