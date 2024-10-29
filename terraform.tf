@@ -85,7 +85,7 @@ resource "aws_iam_policy" "lambda_sns_policy" {
       {
         Effect   = "Allow",
         Action   = "sns:Publish",
-        Resource = aws_sns_topic.website_messages.arn
+        Resource = "arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic"
       }
     ]
   })
