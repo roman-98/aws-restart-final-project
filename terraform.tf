@@ -62,7 +62,6 @@ resource "aws_sns_topic_subscription" "email_subscription" {
 
 resource "aws_iam_role" "lambda_role" {
   name = "lambda_sns_publish_role"
-
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -80,7 +79,6 @@ resource "aws_iam_role" "lambda_role" {
 resource "aws_iam_policy" "lambda_sns_policy" {
   name        = "lambda_sns_publish_policy"
   description = "IAM policy for Lambda to publish messages to SNS"
-
   policy = jsonencode({
     Version = "2012-10-17",
     Statement = [
@@ -93,9 +91,33 @@ resource "aws_iam_policy" "lambda_sns_policy" {
   })
 }
 
+resource "aws_iam_policy" "lambda_logging" {
+  name        = "lambda_logging"
+  description = "IAM policy for logging from a lambda"
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [
+      {
+        Effect = "Allow"
+        Action = [
+          "logs:CreateLogGroup",
+          "logs:CreateLogStream",
+          "logs:PutLogEvents"
+        ]
+        Resource = "arn:aws:logs:*:*:*"
+      }
+    ]
+  })
+}
+
 resource "aws_iam_role_policy_attachment" "lambda_sns_attach" {
   role       = aws_iam_role.lambda_role.name
   policy_arn = aws_iam_policy.lambda_sns_policy.arn
+}
+
+resource "aws_iam_role_policy_attachment" "lambda_logs" {
+  role       = aws_iam_role.lambda_role.name
+  policy_arn = aws_iam_policy.lambda_logging.arn
 }
 
 data "archive_file" "lambda_zip" {
@@ -110,12 +132,55 @@ resource "aws_lambda_function" "send_message" {
   handler         = "lambda_function.lambda_handler"
   runtime         = "python3.8"
   filename        = data.archive_file.lambda_zip.output_path
-  
+ 
   environment {
     variables = {
       SNS_TOPIC_ARN = aws_sns_topic.website_messages.arn
     }
   }
-  
+ 
   source_code_hash = data.archive_file.lambda_zip.output_base64sha256
+}
+
+resource "aws_lambda_permission" "apigw" {
+  statement_id  = "AllowAPIGatewayInvoke"
+  action        = "lambda:InvokeFunction"
+  function_name = aws_lambda_function.send_message.function_name
+  principal     = "apigateway.amazonaws.com"
+  source_arn    = "${aws_apigatewayv2_api.api.execution_arn}/*/*"
+}
+
+resource "aws_apigatewayv2_api" "api" {
+  name          = "WebsiteMessagesAPI"
+  protocol_type = "HTTP"
+  cors_configuration {
+    allow_headers = ["content-type"]
+    allow_methods = ["POST"]
+    allow_origins = ["*"]
+    max_age      = 300
+  }
+}
+
+resource "aws_apigatewayv2_integration" "lambda_integration" {
+  api_id             = aws_apigatewayv2_api.api.id
+  integration_type   = "AWS_PROXY"
+  integration_uri    = aws_lambda_function.send_message.invoke_arn
+  integration_method = "POST"
+  payload_format_version = "2.0"
+}
+
+resource "aws_apigatewayv2_route" "post_route" {
+  api_id    = aws_apigatewayv2_api.api.id
+  route_key = "POST /send-message"
+  target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
+}
+
+resource "aws_apigatewayv2_stage" "default_stage" {
+  api_id      = aws_apigatewayv2_api.api.id
+  name        = "$default"
+  auto_deploy = true
+}
+
+output "api_endpoint" {
+  value = aws_apigatewayv2_stage.default_stage.invoke_url
 }
