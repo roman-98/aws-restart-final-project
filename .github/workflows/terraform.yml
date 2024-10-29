@@ -7,27 +7,27 @@ on:
   workflow_dispatch:
 
 jobs:
-  Empty-bucket:
-    name: Empty S3 Bucket
-    runs-on: ubuntu-latest
+ # Empty-bucket:
+ #   name: Empty S3 Bucket
+ #   runs-on: ubuntu-latest
  
-    steps:
-      - name: Checkout repository
-        uses: actions/checkout@v2
+ #   steps:
+ #     - name: Checkout repository
+ #       uses: actions/checkout@v2
  
-      - name: Configure AWS credentials
-        uses: aws-actions/configure-aws-credentials@v1
-        with:
-          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: eu-west-1
+ #     - name: Configure AWS credentials
+ #       uses: aws-actions/configure-aws-credentials@v1
+ #       with:
+ #         aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+ #         aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+ #         aws-region: eu-west-1
  
-      - name: Empty S3 Bucket
-        run: |
-          aws s3 rm s3://romanstripa.ie --recursive
+ #     - name: Empty S3 Bucket
+ #       run: |
+ #         aws s3 rm s3://romanstripa.ie --recursive
 
   Plan:
-    needs: Empty-bucket
+    #needs: Empty-bucket
     uses: roman-98/aws-restart-final-project/.github/workflows/aws_tf_plan.yml@main
     secrets:
       cli_config_credentials_token: ${{ secrets.TFC_API_TOKEN }}
