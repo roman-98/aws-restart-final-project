@@ -2,21 +2,39 @@ import json
 import boto3
 import os
 
-sns_client = boto3.client('sns')
-sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
-
 def lambda_handler(event, context):
-    body = json.loads(event.get('body', '{}'))
-    message = body.get("message", "")
-    subject = "New Message from Website"
-
-    response = sns_client.publish(
-        TopicArn=sns_topic_arn,
-        Message=message,
-        Subject=subject
-    )
-
-    return {
-        'statusCode': 200,
-        'body': json.dumps('Message sent successfully')
-    }
+    try:
+        sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
+        
+        body = json.loads(event['body'])
+        message = body.get('message', '')
+        
+        sns = boto3.client('sns')
+        
+        response = sns.publish(
+            TopicArn=sns_topic_arn,
+            Message=message
+        )
+        
+        return {
+            'statusCode': 200,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'message': 'Message sent successfully',
+                'messageId': response['MessageId']
+            })
+        }
+    except Exception as e:
+        return {
+            'statusCode': 500,
+            'headers': {
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*'
+            },
+            'body': json.dumps({
+                'error': str(e)
+            })
+        }
