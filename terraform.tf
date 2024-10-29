@@ -98,18 +98,24 @@ resource "aws_iam_role_policy_attachment" "lambda_sns_attach" {
   policy_arn = aws_iam_policy.lambda_sns_policy.arn
 }
 
-resource "aws_lambda_function" "send_message" {
-  function_name = "sendMessageFunction"
-  role          = aws_iam_role.lambda_role.arn
-  handler       = "lambda_function.lambda_handler"
-  runtime       = "python3.8"
-  filename      = "function.zip" 
+data "archive_file" "lambda_zip" {
+  type        = "zip"
+  source_dir  = "${path.module}/lambda"
+  output_path = "${path.module}/function.zip"
+}
 
+resource "aws_lambda_function" "send_message" {
+  function_name    = "sendMessageFunction"
+  role            = aws_iam_role.lambda_role.arn
+  handler         = "lambda_function.lambda_handler"
+  runtime         = "python3.8"
+  filename        = data.archive_file.lambda_zip.output_path
+  
   environment {
     variables = {
       SNS_TOPIC_ARN = aws_sns_topic.website_messages.arn
     }
   }
-
-  source_code_hash = filebase64sha256("function.zip")
+  
+  source_code_hash = data.archive_file.lambda_zip.output_base64sha256
 }
