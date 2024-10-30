@@ -73,7 +73,7 @@ resource "aws_iam_role_policy_attachment" "lambda_s3_attach" {
 data "archive_file" "lambda_zip" {
   type        = "zip"
   source_file = "${path.module}/sendEmailFunction.py"
-  output_path = "${path.module}/lambdafunction.zip"
+  output_path = "${path.module}/lambdaf.zip"
 }
 
 resource "aws_lambda_function" "presign_url_lambda" {

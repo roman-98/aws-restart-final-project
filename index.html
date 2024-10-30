@@ -237,7 +237,7 @@
     const timestamp = Date.now();
 
     try {
-      const presignResponse = await fetch(`https://YOUR_API_GATEWAY_URL/generate-presigned-url?timestamp=${timestamp}`);
+      const presignResponse = await fetch(`https://bhv2yjsxp8.execute-api.eu-west-1.amazonaws.com/generate-presigned-url?timestamp=${timestamp}`);
       const { url } = await presignResponse.json();
 
       const uploadResponse = await fetch(url, {
