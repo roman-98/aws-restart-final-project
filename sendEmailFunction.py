@@ -1,32 +1,29 @@
 import json
 import boto3
 import os
+from botocore.exceptions import ClientError
 
 s3_client = boto3.client('s3')
-sns_client = boto3.client('sns')
-sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
+bucket_name = os.environ['romanstripa.ie']
 
 def lambda_handler(event, context):
     try:
-        bucket_name = event['Records'][0]['s3']['bucket']['name']
-        object_key = event['Records'][0]['s3']['object']['key']
-
-        response = s3_client.get_object(Bucket=bucket_name, Key=object_key)
-        message_content = response['Body'].read().decode('utf-8')
-
-        sns_client.publish(
-            TopicArn=sns_topic_arn,
-            Message=message_content,
-            Subject="New Message from Website"
+        timestamp = event['queryStringParameters']['timestamp']
+        object_key = f"messages/message-{timestamp}.json"
+        
+        presigned_url = s3_client.generate_presigned_url(
+            'put_object',
+            Params={'Bucket': bucket_name, 'Key': object_key, 'ContentType': 'application/json'},
+            ExpiresIn=3600  
         )
-
+        
         return {
             'statusCode': 200,
-            'body': json.dumps('Message sent successfully!')
+            'body': json.dumps({'url': presigned_url})
         }
-    except Exception as e:
-        print(f"Error: {e}")
+    except ClientError as e:
+        print(f"Error generating presigned URL: {e}")
         return {
             'statusCode': 500,
-            'body': json.dumps('Internal Server Error')
+            'body': json.dumps('Failed to generate presigned URL')
         }
