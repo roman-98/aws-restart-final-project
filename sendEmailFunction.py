@@ -4,7 +4,7 @@ import os
 
 s3_client = boto3.client('s3')
 sns_client = boto3.client('sns')
-sns_topic_arn = os.environ['SNS_TOPIC_ARN']
+sns_topic_arn = os.environ['arn:aws:sns:eu-west-1:730335226605:websiteMessagesTopic']
 
 def lambda_handler(event, context):
     try:
