@@ -153,6 +153,13 @@ resource "aws_lambda_function" "generate_presigned_url" {
 resource "aws_apigatewayv2_api" "api" {
   name          = "PresignedUrlAPI"
   protocol_type = "HTTP"
+
+  cors_configuration {
+    allow_headers     = ["Content-Type", "X-Amz-Date", "Authorization", "X-Api-Key", "X-Amz-Security-Token"]
+    allow_methods     = ["GET", "OPTIONS"]
+    allow_origins     = ["http://romanstripa.ie.s3-website-eu-west-1.amazonaws.com"]
+    allow_credentials = false
+  }
 }
 
 resource "aws_apigatewayv2_integration" "lambda_integration" {
