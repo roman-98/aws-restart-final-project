@@ -241,7 +241,7 @@
       const { url } = await presignResponse.json();
 
       const uploadResponse = await fetch(url, {
-        method: 'PUT',
+        method: 'GET',
         headers: {
           'Content-Type': 'application/json'
         },

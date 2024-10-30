@@ -171,7 +171,7 @@ resource "aws_apigatewayv2_integration" "lambda_integration" {
 
 resource "aws_apigatewayv2_route" "presign_route" {
   api_id    = aws_apigatewayv2_api.api.id
-  route_key = "PUT /generate-presigned-url"
+  route_key = "GET /generate-presigned-url"
   target    = "integrations/${aws_apigatewayv2_integration.lambda_integration.id}"
 }
 
