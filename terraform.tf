@@ -2,9 +2,18 @@ resource "aws_s3_bucket" "website_bucket" {
   bucket = "romanstripa.ie"
 }
 
-resource "aws_s3_bucket_public_access_block" "website_public_access_block" {
+resource "aws_s3_bucket_website_configuration" "website_config" {
   bucket = aws_s3_bucket.website_bucket.id
 
+  index_document {
+    suffix = "index.html"
+  }
+
+  depends_on = [aws_s3_bucket.website_bucket]
+}
+
+resource "aws_s3_bucket_public_access_block" "website_public_access_block" {
+  bucket                  = aws_s3_bucket.website_bucket.id
   block_public_acls       = false
   block_public_policy     = false
   ignore_public_acls      = false
@@ -19,17 +28,16 @@ resource "aws_s3_bucket_policy" "website_policy" {
       {
         Effect    = "Allow",
         Principal = "*",
-        Action    = [
-          "s3:GetObject",
-          "s3:PutObject"
-        ],
-        Resource  = [
-          "${aws_s3_bucket.website_bucket.arn}",
-          "${aws_s3_bucket.website_bucket.arn}/*"
-        ]
+        Action    = "s3:GetObject",
+        Resource  = "${aws_s3_bucket.website_bucket.arn}/*"
       }
     ]
   })
+}
+
+output "website_url" {
+  value = aws_s3_bucket.website_bucket.website_endpoint
+  description = "The URL of the hosted website"
 }
 
 resource "aws_iam_role" "lambda_role" {
